@@ -1,0 +1,22 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --artisan-background: darkslategrey;
+    --artisan-secondary: #808080;
+    --artisan-font-color: #e7e7e7;
+}
+
+.hull {
+    width: 40%;
+    height: 500px;
+    background: var(--artisan-background);
+    display: block;
+}
+
+.output {
+    width: 100%;
+    color: var(--artisan-font-color);
+}
