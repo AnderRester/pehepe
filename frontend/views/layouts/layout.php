@@ -9,26 +9,69 @@
     <link rel="stylesheet" href="./frontend/css/styles.css">
 </head>
 <body>
-<div class="hull">
-    <div class="output">
-
-    </div>
-    <div class="buttons">
-        <form action="/" method="post">
-            <button name="equal">=</button>
-        </form>
-    </div>
-</div>
 <?php
-require_once "./backend/AllInOne.php";
+include_once "./backend/AllInOne.php";
+//require_once "./frontend/components/variables.php";
 
 $symbol = '';
 $sign = '';
-$str = "33 * 22 / (2+3)";
+$str = "0";
+
 
 $allInOne = new AllInOne();
-$allInOne->please_do_something($str);
+//$allInOne->calculate($str);
 $allInOne->run();
 ?>
+<div class="hull">
+    <div class="calculator_settings">
+        <div class="calc_type">
+            <button name="equal" class="operation_button calculator_options">Common</button>
+            <button name="equal" class="operation_button calculator_options">Hamming</button>
+        </div>
+        <div class="load-wrapp">
+            <div class="load-4">
+                <div class="ring-1"></div>
+            </div>
+        </div>
+    </div>
+    <div class="output">
+        <div class="result">
+            <?= $str; ?>
+        </div>
+    </div>
+    <div class="buttons1">
+        <!--        <form action="/" method="post1">-->
+        <!--            <button name="equal" class="operation_button">=</button>-->
+        <!--        </form>-->
+        <div>
+            <button name="equal" class="operation_button">AC</button>
+            <button name="equal" class="operation_button">7</button>
+            <button name="equal" class="operation_button">4</button>
+            <button name="equal" class="operation_button">1</button>
+            <button name="equal" class="operation_button">0</button>
+        </div>
+        <div>
+            <button name="equal" class="operation_button">+/-</button>
+            <button name="equal" class="operation_button">8</button>
+            <button name="equal" class="operation_button">5</button>
+            <button name="equal" class="operation_button">2</button>
+            <button name="equal" class="operation_button">?</button>
+        </div>
+        <div>
+            <button name="equal" class="operation_button">%</button>
+            <button name="equal" class="operation_button">9</button>
+            <button name="equal" class="operation_button">6</button>
+            <button name="equal" class="operation_button">3</button>
+            <button name="equal" class="operation_button">,</button>
+        </div>
+        <div>
+            <button name="equal" class="operation_button">÷</button>
+            <button name="equal" class="operation_button">×</button>
+            <button name="equal" class="operation_button">-</button>
+            <button name="equal" class="operation_button">+</button>
+            <button name="equal" class="operation_button">=</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

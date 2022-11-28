@@ -4,19 +4,127 @@
 }
 
 :root {
-    --artisan-background: darkslategrey;
+    --artisan-background: #2F4F4FFF;
+    --artisan-background-dark: #263f3f;
     --artisan-secondary: #808080;
-    --artisan-font-color: #e7e7e7;
+    --artisan-font-color: #dcdcdc;
+}
+
+body {
+    font-family: "Noto Sans", sans-serif;
+    background: #000;
 }
 
 .hull {
-    width: 40%;
+    width: 460px;
     height: 500px;
     background: var(--artisan-background);
-    display: block;
+    border-radius: 10px;
+    margin: 3%;
+    padding:5px 5px 75px 5px;
 }
+
+.calculator_settings {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0 4px 0 4px;
+    height: 60px;
+    /*background: var(--artisan-background-dark);*/
+}
+
+.calc_type {
+    display: flex;
+    flex-direction: row;
+}
+
+.operation_button.calculator_options {
+    color: var(--artisan-font-color);
+    font-size: 20px;
+    box-shadow: 3px 3px 10px #00000055, -1px -1px 10px rgba(103, 103, 103, 0.8);
+
+}
+
 
 .output {
     width: 100%;
+    /*margin-top: 20px;*/
     color: var(--artisan-font-color);
+    height: 80px;
+    /*background: var(--artisan-secondary);*/
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    font-size: 3rem;
+    box-shadow: inset 5px 5px 10px #00000055, inset -5px -5px 10px rgba(103, 103, 103, 0.8);
+    margin: 10px 0px 10px 0px;
+    border-radius: 10px;
+}
+.result {
+    padding-right: 10px;
+}
+
+.buttons1 {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: inset 5px 5px 10px #00000055, inset -5px -5px 10px rgba(103, 103, 103, 0.8);
+    padding: 20px 0 40px 0;
+}
+
+.operation_button {
+    margin: 10px 5px 0px 5px;
+    padding: 1rem;
+    width: 100px;
+    /*aspect-ratio: 1/1;*/
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-size: 24px;
+    border: none;
+    background: transparent;
+    border-radius: 14px;
+    color: var(--artisan-font-color);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.33), -5px -5px 10px rgba(66, 107, 107, 0.56);
+    cursor: pointer;
+}
+
+
+.operation_button:active {
+    box-shadow: inset 5px 5px 10px #00000055, inset -5px -5px 10px rgba(103, 103, 103, 0.8);
+}
+
+.operation_button:active .fa-solid {
+    font-size: 1.9rem;
+}
+
+/* ANIMS */
+.ring-1 {
+    width: 10px;
+    height: 10px;
+    margin: 0 auto;
+    padding: 10px;
+    border: 7px dashed var(--artisan-font-color);
+    border-radius: 100%;
+}
+
+
+/* =Animate the stuff
+------------------------ */
+.load-4 .ring-1 {
+    animation: loadingD 1.5s 0.3s  infinite;
+}
+
+@keyframes loadingD {
+0% {
+    transform: rotate(0deg);
+}
+100% {
+    transform: rotate(360deg);
+}
 }
