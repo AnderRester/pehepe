@@ -12,7 +12,21 @@
 
 body {
     font-family: "Noto Sans", sans-serif;
-    background: #000;
+    background: #8d8d8d;
+}
+
+.pAehali {
+    flex-direction: column !important;
+    justify-content: space-between;
+}
+
+select {
+    padding: 40px;
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: var(--artisan-font-color);
+    font-size: 20px;
 }
 
 .hull {
@@ -42,11 +56,14 @@ body {
 
 .operation_button.calculator_options {
     color: var(--artisan-font-color);
-    font-size: 20px;
+    font-size: 18px;
     box-shadow: 3px 3px 10px #00000055, -1px -1px 10px rgba(103, 103, 103, 0.8);
 
 }
 
+.operation_button.calculator_options {
+    text-decoration: none;
+}
 
 .output {
     width: 100%;
@@ -59,14 +76,14 @@ body {
     align-items: center;
     font-size: 3rem;
     box-shadow: inset 5px 5px 10px #00000055, inset -5px -5px 10px rgba(103, 103, 103, 0.8);
-    margin: 10px 0px 10px 0px;
+    margin: 10px 0 10px 0;
     border-radius: 10px;
 }
 .result {
     padding-right: 10px;
 }
 
-.buttons1 {
+.buttons>form {
     display: flex;
     width: 100%;
     flex-direction: row;
@@ -78,7 +95,7 @@ body {
 }
 
 .operation_button {
-    margin: 10px 5px 0px 5px;
+    margin: 10px 5px 0 5px;
     padding: 1rem;
     width: 100px;
     /*aspect-ratio: 1/1;*/
@@ -97,13 +114,14 @@ body {
 
 .operation_button:active {
     box-shadow: inset 5px 5px 10px #00000055, inset -5px -5px 10px rgba(103, 103, 103, 0.8);
+    transition: 2s;
 }
 
 .operation_button:active .fa-solid {
     font-size: 1.9rem;
 }
 
-/* ANIMS */
+/* ANIMATIONS */
 .ring-1 {
     width: 10px;
     height: 10px;

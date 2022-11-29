@@ -9,26 +9,13 @@
     <link rel="stylesheet" href="./frontend/css/styles.css">
 </head>
 <body>
-<?php
-include_once "./backend/AllInOne.php";
-//require_once "./frontend/components/variables.php";
-
-$symbol = '';
-$sign = '';
-$str = "0";
-
-
-$allInOne = new AllInOne();
-//$allInOne->calculate($str);
-$allInOne->run();
-?>
 <div class="hull">
     <div class="calculator_settings">
         <div class="calc_type">
-            <button name="equal" class="operation_button calculator_options">Common</button>
-            <button name="equal" class="operation_button calculator_options">Hamming</button>
+            <a href="/" class="operation_button calculator_options">Common</a>
+            <a href="/hamming.php" class="operation_button calculator_options">Hamming</a>
         </div>
-        <div class="load-wrapp">
+        <div class="load-wrap">
             <div class="load-4">
                 <div class="ring-1"></div>
             </div>
@@ -36,41 +23,41 @@ $allInOne->run();
     </div>
     <div class="output">
         <div class="result">
-            <?= $str; ?>
+            <?= $_SESSION['str']; ?>
         </div>
     </div>
-    <div class="buttons1">
-        <!--        <form action="/" method="post1">-->
-        <!--            <button name="equal" class="operation_button">=</button>-->
-        <!--        </form>-->
-        <div>
-            <button name="equal" class="operation_button">AC</button>
-            <button name="equal" class="operation_button">7</button>
-            <button name="equal" class="operation_button">4</button>
-            <button name="equal" class="operation_button">1</button>
-            <button name="equal" class="operation_button">0</button>
-        </div>
-        <div>
-            <button name="equal" class="operation_button">+/-</button>
-            <button name="equal" class="operation_button">8</button>
-            <button name="equal" class="operation_button">5</button>
-            <button name="equal" class="operation_button">2</button>
-            <button name="equal" class="operation_button">?</button>
-        </div>
-        <div>
-            <button name="equal" class="operation_button">%</button>
-            <button name="equal" class="operation_button">9</button>
-            <button name="equal" class="operation_button">6</button>
-            <button name="equal" class="operation_button">3</button>
-            <button name="equal" class="operation_button">,</button>
-        </div>
-        <div>
-            <button name="equal" class="operation_button">÷</button>
-            <button name="equal" class="operation_button">×</button>
-            <button name="equal" class="operation_button">-</button>
-            <button name="equal" class="operation_button">+</button>
-            <button name="equal" class="operation_button">=</button>
-        </div>
+    <div class="buttons">
+        <form action="/" method="post">
+            <input type="hidden" name="str" value="0">
+            <div>
+                <button name="clear" class="operation_button">AC</button>
+                <button name="add_digit" class="operation_button" value="7">7</button>
+                <button name="add_digit" class="operation_button" value="4">4</button>
+                <button name="add_digit" class="operation_button" value="1">1</button>
+                <button name="add_digit" class="operation_button" value="0">0</button>
+            </div>
+            <div>
+                <button name="change_sign" class="operation_button">+/-</button>
+                <button name="add_digit" class="operation_button" value="8">8</button>
+                <button name="add_digit" class="operation_button" value="5">5</button>
+                <button name="add_digit" class="operation_button" value="2">2</button>
+                <button name="none" class="operation_button">?</button>
+            </div>
+            <div>
+                <button name="percent" class="operation_button">%</button>
+                <button name="add_digit" class="operation_button" value="9">9</button>
+                <button name="add_digit" class="operation_button" value="6">6</button>
+                <button name="add_digit" class="operation_button" value="3">3</button>
+                <button name="add_dot" class="operation_button">,</button>
+            </div>
+            <div>
+                <button name="operation" class="operation_button" value="/">÷</button>
+                <button name="operation" class="operation_button" value="*">×</button>
+                <button name="operation" class="operation_button" value="-">-</button>
+                <button name="operation" class="operation_button" value="+">+</button>
+                <button name="equal" class="operation_button">=</button>
+            </div>
+        </form>
     </div>
 </div>
 </body>
