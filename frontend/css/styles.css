@@ -21,28 +21,58 @@ body {
 }
 
 select {
-    padding: 40px;
+    padding: 40px 0 40px 0;
     width: 100%;
     background: transparent;
     border: none;
     color: var(--artisan-font-color);
     font-size: 20px;
 }
+select:focus {
+    outline: none;
+    border: none;
+}
+option {
+    background: rgba(141, 141, 141, 0.1);
+    color: var(--artisan-background-dark);
+}
+
+.set_hamming {
+    width: 80%;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: end;
+    font-size: 20px;
+    box-shadow: inset 5px 5px 10px #00000055, inset -5px -5px 10px rgba(103, 103, 103, 0.8);
+}
 
 .hull {
-    width: 460px;
+    width: 500px;
     height: 500px;
     background: var(--artisan-background);
     border-radius: 10px;
     margin: 3%;
     padding:5px 5px 75px 5px;
 }
+.hull.hamming {
+    height: 374px;
+    padding:5px 10px 75px 10px;
+}
+input {
+    border: none;
+    width: 100%;
+}
+
+input:focus {
+    border-color: transparent;
+    outline: none;
+}
+
 
 .calculator_settings {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: space-around;
     border-radius: 10px;
     padding: 0 4px 0 4px;
     height: 60px;
@@ -95,7 +125,7 @@ select {
 }
 
 .operation_button {
-    margin: 10px 5px 0 5px;
+    margin: 10px 5px;
     padding: 1rem;
     width: 100px;
     /*aspect-ratio: 1/1;*/
@@ -122,6 +152,11 @@ select {
 }
 
 /* ANIMATIONS */
+.load-wrap {
+    display: flex;
+    align-items: center;
+}
+
 .ring-1 {
     width: 10px;
     height: 10px;
