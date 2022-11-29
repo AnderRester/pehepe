@@ -75,6 +75,7 @@ class Common
 
 class Hamming
 {
+    #1
     public function sir_bite()
     {
         for ($i = 0; $i <= 15; $i++) {
@@ -84,15 +85,17 @@ class Hamming
         }
     }
 
+    #2
     public function sir_byte()
     {
         for ($i = 0; $i <= 15; $i++) {
             if ((2 ** $i) > intval($_POST['str']) * 8) {
-                return intval($_POST['str']) * 8  + $i;
+                return intval($_POST['str']) * 8 + $i;
             }
         }
     }
 
+    #3
     public function control_bite()
     {
         for ($i = 0; $i <= 15; $i++) {
@@ -102,6 +105,7 @@ class Hamming
         };
     }
 
+    #4
     public function control_byte()
     {
         for ($i = 0; $i <= 15; $i++) {
@@ -141,39 +145,157 @@ class Network
     # https://en.wikipedia.org/wiki/Wildcard_mask
     # https://www.drogoreanu.ro/tutorials/adresa-ip.php
 
-    public function network_class() {
+    public string $network_class = '';
+
+    #1 Класс IP-адреса
+    public function network_class($network_class)
+    {
+        $mask = $_POST['str'];
+        echo $mask;
+        switch($mask) {
+            case $mask >= '1.0.0.0' && $mask <= '127.0.0.0':
+                return $network_class = "A";
+            case $mask >= '128.0.0.0' && $mask <= '191.255.0.0':
+                return $network_class = "B";
+            case $mask >= '192.0.0.0' && $mask <= '223.255.255.0':
+                return $network_class = "C";
+            case $mask >= '224.0.0.0' && $mask <= '239.255.255.255':
+                return $network_class = "D";
+            case $mask >= '240.0.0.0' && $mask <= '254.255.255.255':
+                return $network_class = "E";
+        }
+    }
+
+    #2 Маска сети по умолчанию
+    public function default_mask()
+    {
 
     }
-    public function default_mask() {
+
+    #3 Расширенная маска IP-адреса в десятичном формате с точками.Ответ
+    public function subnet_mask()
+    {
 
     }
-    public function subnet_mask() {
+
+    #4.1 Количество битов, зарезервированных для подсети
+    public function subnet_res_bits()
+    {
 
     }
-    public function subnet_res_bits() {
+
+    #4.1 Максимальное количество возможных подсетей
+    public function subnet_max_quantity()
+    {
 
     }
-    public function subnet_max_quantity() {
+
+    #4.3 Количество битов, зарезервированных для узла
+    public function node_res_bits()
+    {
 
     }
-    public function node_res_bits() {
+
+    #4.4 Максимальное количество возможных узлов в каждой подсети
+    public function max_possible_nodes()
+    {
 
     }
-    public function max_nodes() {
+
+    #4.5 Шаг подсети
+    public function network_step()
+    {
 
     }
-    public function network_class() {
+
+    #4.6 Номер подсети ί, где ί — число битов, зарезервированных для подсети
+    public function network_number_with_res_bits()
+    {
 
     }
-    public function network_class() {
+
+    #5 Идентификатор ПОДСЕТИ i (в десятичном формате с точками)Ответ
+    public function subnet_identifier()
+    {
 
     }
-    public function network_class() {
+
+    #6 Двоичное и десятичное значение маски в октете, содержащем no. подсети и части узла (разделенные точкой, например: 11100000.224)
+    public function byte_mask_value()
+    {
+
+    }
+
+    #7 Двоичное значение байта, не содержащее. подсети и часть узла
+    public function bin_bite_no_subnet_node()
+    {
+
+    }
+
+    #8 Идентификатор NETWORK (в десятичном формате с точками)
+    public function network_identifier_dec()
+    {
+
+    }
+
+    #9 Идентификатор ПОДСЕТИ (в десятичном формате с точками)Ответ
+    public function subwork_identifier_dec()
+    {
+
+    }
+
+    #10 Идентификатор NOD исходного IP-адреса (в десятичном формате с точками)Ответ
+    public function node_identifier_initial_dec()
+    {
+
+    }
+
+    #11 Можно ли назначить начальный IP-адрес узлу?Ответ
+    public function possible_assign_ip()
+    {
+
+    }
+
+    #12 Идентификатор первой подсети, присвоенный первому узлу
+    public function identifier_f_subnet_f_node()
+    {
+
+    }
+
+    #13 Идентификатор первой подсети, присвоенной последнему узлуОтвет
+    public function identifier_f_subnet_l_node()
+    {
+
+    }
+
+    #14 Широковещательный адрес для первой назначенной подсети
+    public function broadcast_f_subnet()
+    {
+
+    }
+
+    #15 Идентификатор последней подсети, присвоенной первому узлуОтвет
+    public function identifier_l_subnet_f_node()
+    {
+
+    }
+
+    #16 Идентификатор последней подсети, присвоенный последнему узлуОтвет
+    public function identifier_l_subnet_l_node()
+    {
+
+    }
+
+    #17 Широковещательный адрес для последней назначенной подсетиОтвет
+    public function broadcast_l_subnet()
+    {
 
     }
 
     public function run(): void
     {
-
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $this->network_class();
+        }
     }
 }

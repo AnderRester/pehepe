@@ -12,8 +12,9 @@
 <div class="hull">
     <div class="calculator_settings">
         <div class="calc_type">
-            <a href="/" class="operation_button calculator_options">Common</a>
-            <a href="/hamming.php" class="operation_button calculator_options">Hamming</a>
+            <a href="/pehepe/" class="operation_button calculator_options">Common</a>
+            <a href="/pehepe/hamming.php" class="operation_button calculator_options">Hamming</a>
+            <a href="/pehepe/network.php" class="operation_button calculator_options">Network</a>
         </div>
         <div class="load-wrap">
             <div class="load-4">
@@ -27,7 +28,7 @@
         </div>
     </div>
     <div class="buttons">
-        <form action="/" method="post">
+        <form action="/pehepe/" method="post">
             <input type="hidden" name="str" value="0">
             <div>
                 <button name="clear" class="operation_button">AC</button>
