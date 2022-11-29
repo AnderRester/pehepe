@@ -102,7 +102,7 @@ class Hamming
             if ((2 ** $i) > intval($_POST['str'])) {
                 return $i;
             }
-        };
+        }
     }
 
     #4
@@ -112,7 +112,7 @@ class Hamming
             if ((2 ** $i) > intval($_POST['str']) * 8) {
                 return $i;
             }
-        };
+        }
     }
 
     public function run(): void
@@ -145,67 +145,117 @@ class Network
     # https://en.wikipedia.org/wiki/Wildcard_mask
     # https://www.drogoreanu.ro/tutorials/adresa-ip.php
 
+    #1
     public string $network_class = '';
+    #2
+    public string $default_mask = '';
+    public int $default_mask_dec = 0;
+    #3
+    public string $subnet_mask = '';
+    public int $subnet_mask_dec = 0;
+    #4.1
+    public int $subnet_res_bits = 0;
+    #4.2
+    public int $max_pos_subnets = 0;
+    #4.3
+    public int $node_res_bits = 0;
+    #4.4
+    public int $max_possible_nodes = 0;
+    #4.5
+    public int $network_step = 0;
+    #4.6
+
+    #5
+    #6
+    #7
+    #8
+    #9
+    #10
+    #11
+    #12
+    #13
+    #14
+    #15
+    #16
+    #17
+
 
     #1 Класс IP-адреса
-    public function network_class($network_class)
+    public function network_class(): string
     {
         $mask = $_POST['str'];
-        echo $mask;
         switch($mask) {
-            case $mask >= '1.0.0.0' && $mask <= '127.0.0.0':
-                return $network_class = "A";
             case $mask >= '128.0.0.0' && $mask <= '191.255.0.0':
-                return $network_class = "B";
+                return $this->network_class = 'B';
             case $mask >= '192.0.0.0' && $mask <= '223.255.255.0':
-                return $network_class = "C";
+                return $this->network_class = 'C';
             case $mask >= '224.0.0.0' && $mask <= '239.255.255.255':
-                return $network_class = "D";
+                return $this->network_class = 'D';
             case $mask >= '240.0.0.0' && $mask <= '254.255.255.255':
-                return $network_class = "E";
+                return $this->network_class = 'E';
+            default:
+                return $this->network_class = 'A';
         }
     }
 
     #2 Маска сети по умолчанию
     public function default_mask()
     {
-
+        switch ($this->network_class) {
+            case 'A':
+                $this->default_mask_dec = 8;
+                return $this->default_mask = '255.0.0.0';
+            case 'B':
+                $this->default_mask_dec = 16;
+                return $this->default_mask = '255.255.0.0';
+            case 'C':
+                $this->default_mask_dec = 24;
+                return $this->default_mask = '255.255.255.0';
+        }
     }
 
     #3 Расширенная маска IP-адреса в десятичном формате с точками.Ответ
-    public function subnet_mask()
+    public function subnet_mask(): void
     {
-
+        $bits = [128, 64, 32, 16, 8, 4, 2, 1];
+        $mask = substr($_POST['str'], -2);
+        $this->subnet_mask_dec = $mask;
+        $supp_bit = 0;
+        for ($i = 0; $i < intval($mask) - (intval($mask / 8) * 8); $i++) {
+            $supp_bit += $bits[$i];
+        }
+        $this->subnet_mask = str_repeat("255.", intval($mask / 8)) . $supp_bit;
     }
 
     #4.1 Количество битов, зарезервированных для подсети
-    public function subnet_res_bits()
+    public function subnet_res_bits(): void
     {
-
+        $this->subnet_res_bits = $this->subnet_mask_dec - $this->default_mask_dec;
+        // echo $this->default_mask . " " . $this->default_mask_dec . " " . $this->subnet_mask . " " . $this->subnet_mask_dec;
     }
 
     #4.1 Максимальное количество возможных подсетей
-    public function subnet_max_quantity()
+    public function subnet_max_quantity(): void
     {
-
+        $this->max_pos_subnets = 2 ** $this->subnet_res_bits;
     }
 
     #4.3 Количество битов, зарезервированных для узла
-    public function node_res_bits()
+    public function node_res_bits(): void
     {
-
+        $this->node_res_bits = 32 - $this->subnet_mask_dec;
     }
 
     #4.4 Максимальное количество возможных узлов в каждой подсети
-    public function max_possible_nodes()
+    public function max_possible_nodes(): void
     {
-
+        $this->max_possible_nodes = 2 ** $this->node_res_bits - 2;
     }
 
-    #4.5 Шаг подсети
+    #4.5 Шаг подсети ??
     public function network_step()
     {
-
+        $this->network_step = 256;
     }
 
     #4.6 Номер подсети ί, где ί — число битов, зарезервированных для подсети
@@ -214,7 +264,7 @@ class Network
 
     }
 
-    #5 Идентификатор ПОДСЕТИ i (в десятичном формате с точками)Ответ
+    #5 Идентификатор ПОДСЕТИ (в десятичном формате с точками)Ответ
     public function subnet_identifier()
     {
 
@@ -296,6 +346,14 @@ class Network
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->network_class();
+            $this->default_mask();
+            $this->subnet_mask();
+            $this->subnet_res_bits();
+            $this->subnet_max_quantity();
+            $this->node_res_bits();
+            $this->max_possible_nodes();
+            // $_POST['result'] = "Class " . $this->network_class . ' <br> Def. Mask' . $this->default_mask . ' <br> Subn. Mask' . $this->subnet_mask . " <br>Res.Bits" . $this->subnet_res_bits . " <br>Max.Sub." . $this->max_pos_subnets . " <br>" . $this->node_res_bits . " <br>" . $this->max_possible_nodes . "<br> ";
+            echo "<br>Class " . $this->network_class . ' <br> Def. Mask ' . $this->default_mask . ' <br> Subn. Mask ' . $this->subnet_mask . " <br>Res.Bits " . $this->subnet_res_bits . " <br>Max.Sub. " . $this->max_pos_subnets . " <br> " . $this->node_res_bits . " <br> " . $this->max_possible_nodes . "<br> ";
         }
     }
 }
