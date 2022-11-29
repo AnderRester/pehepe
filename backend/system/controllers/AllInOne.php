@@ -138,6 +138,7 @@ class Network
     # TASKS
     # http://elearning.usarb.md/moodle/mod/quiz/review.php?attempt=32580&cmid=29027
     # INFO
+    # https://en.wikipedia.org/wiki/Wildcard_mask
     # https://www.drogoreanu.ro/tutorials/adresa-ip.php
 
     public function network_class() {
@@ -149,16 +150,16 @@ class Network
     public function subnet_mask() {
 
     }
-    public function network_class() {
+    public function subnet_res_bits() {
 
     }
-    public function network_class() {
+    public function subnet_max_quantity() {
 
     }
-    public function network_class() {
+    public function node_res_bits() {
 
     }
-    public function network_class() {
+    public function max_nodes() {
 
     }
     public function network_class() {
