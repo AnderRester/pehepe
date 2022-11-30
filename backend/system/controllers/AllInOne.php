@@ -145,6 +145,9 @@ class Network
     # https://en.wikipedia.org/wiki/Wildcard_mask
     # https://www.drogoreanu.ro/tutorials/adresa-ip.php
 
+    # Structure
+    public string $page_structure = '';
+
     #1
     public string $network_class = '';
     #2
@@ -163,11 +166,14 @@ class Network
     public int $max_possible_nodes = 0;
     #4.5
     public int $network_step = 0;
-    #4.6
-
+    #4.6 ??
+    public string $subnet_num_i = '';
     #5
+    public string $subnet_identifier_i = '';
     #6
+    public string $bin_dec_subnet_with_part_node = '';
     #7
+    public string $bin_of_byte_subnet_ = '';
     #8
     #9
     #10
@@ -184,7 +190,7 @@ class Network
     public function network_class(): string
     {
         $mask = $_POST['str'];
-        switch($mask) {
+        switch ($mask) {
             case $mask >= '128.0.0.0' && $mask <= '191.255.0.0':
                 return $this->network_class = 'B';
             case $mask >= '192.0.0.0' && $mask <= '223.255.255.0':
@@ -342,7 +348,7 @@ class Network
 
     }
 
-    public function run(): void
+    public function run(): string
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->network_class();
@@ -353,7 +359,63 @@ class Network
             $this->node_res_bits();
             $this->max_possible_nodes();
             // $_POST['result'] = "Class " . $this->network_class . ' <br> Def. Mask' . $this->default_mask . ' <br> Subn. Mask' . $this->subnet_mask . " <br>Res.Bits" . $this->subnet_res_bits . " <br>Max.Sub." . $this->max_pos_subnets . " <br>" . $this->node_res_bits . " <br>" . $this->max_possible_nodes . "<br> ";
-            echo "<br>Class " . $this->network_class . ' <br> Def. Mask ' . $this->default_mask . ' <br> Subn. Mask ' . $this->subnet_mask . " <br>Res.Bits " . $this->subnet_res_bits . " <br>Max.Sub. " . $this->max_pos_subnets . " <br> " . $this->node_res_bits . " <br> " . $this->max_possible_nodes . "<br> ";
+//            echo "<br>Class " . $this->network_class . ' <br> Def. Mask ' . $this->default_mask . ' <br> Subn. Mask ' . $this->subnet_mask . " <br>Res.Bits " . $this->subnet_res_bits . " <br>Max.Sub. " . $this->max_pos_subnets . " <br> " . $this->node_res_bits . " <br> " . $this->max_possible_nodes . "<br> ";
+            return '<div class="structure_container">' .
+                '<div class="structure_container_content">' .
+                '<p class="task">1.Clasa IP adresei: ' . $this->network_class . '</p>' .
+                '<p class="task">2.Masca implicită de reţea: ' . $this->default_mask . '</p>' .
+                '<p class="task">3.Masca extinsa a IP adresei în format zecimal cu punct: ' . $this->subnet_mask . '</p>' .
+                '<p class="task">4.1.Numărul de biţi rezervaţi pentru subreţea: ' . $this->subnet_res_bits . '</p>' .
+                '<p class="task">4.2.Numărul maximal de subreţele posibile: ' . $this->max_pos_subnets . '</p>' .
+                '<p class="task">4.3.Numărul de biţi rezervaţi pentru nod: ' . $this->node_res_bits . '</p>' .
+                '<p class="task">4.4.Numărul maximal de noduri posibile în fiecare subreţea: ' . $this->max_possible_nodes . '</p>' .
+                '<p class="task">4.5.Pasul subreţelei: ' . $this->network_step . '</p>' .
+                '<p class="task">4.6.Numărul subreţelei ί, unde ί este numărul de biţi rezervaţi pentru subreţea: ' . $this->network_class . '</p>' .
+                '<p class="task">5.Identificatorul SUBREŢELEI i (în format zecimal cu punct): ' . $this->network_class . '</p>' .
+                '<p class="task">6.Valoarea binară şi zecimală a măştii în octetul ce conţine nr. de subreţea şi o parte de nod (despărţite prin punct de ex: 11100000.224): ' . $this->network_class . '</p>' .
+                '<p class="task">7.Valoarea binară a octetului ce conţine nr. de subreţea şi o parte de nod: ' . $this->network_class . '</p>' .
+                '<p class="task">8.Identificatorul de REŢEA (în format zecimal cu punct): ' . $this->network_class . '</p>' .
+                '<p class="task">9.Identificatorul de SUBREŢEA (în format zecimal cu punct): ' . $this->network_class . '</p>' .
+                '<p class="task">10.Identificatorul de NOD a IP adresei iniţiale (în format zecimal cu punct): ' . $this->network_class . '</p>' .
+                '<p class="task">11.IP adresa iniţială poate fi atribuită unui nod?: ' . $this->network_class . '</p>' .
+                '<p class="task">12.Identificatorul primei subreţele atribuite cu primul nod: ' . $this->network_class . '</p>' .
+                '<p class="task">13.Identificatorul primei subreţele atribuite cu ultimul nod: ' . $this->network_class . '</p>' .
+                '<p class="task">14.Adresa de difuzare pentru prima subreţea atribuită: ' . $this->network_class . '</p>' .
+                '<p class="task">15.Identificatorul ultimei subreţele atribuite cu primul nod: ' . $this->network_class . '</p>' .
+                '<p class="task">16.Identificatorul ultimei subreţele atribuite cu ultimul nod: ' . $this->network_class . '</p>' .
+                '<p class="task">17.Adresa de difuzare pentru ultima subreţea atribuită: ' . $this->network_class . '</p>' .
+                '</div> ' .
+                '</div>';
         }
+        return '0';
     }
 }
+
+?>
+
+<!--<div class="structure_container">-->
+<!--    <div class="structure_container_content">-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->default_mask . '></p>-->
+<!--        <p class="task">' . $this->subnet_mask . '></p>-->
+<!--        <p class="task">' . $this->subnet_res_bits . '></p>-->
+<!--        <p class="task">' . $this->max_pos_subnets . '></p>-->
+<!--        <p class="task">' . $this->node_res_bits . '></p>-->
+<!--        <p class="task">' . $this->max_possible_nodes . '></p>-->
+<!--        <p class="task">' . $this->network_step . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--        <p class="task">' . $this->network_class . '></p>-->
+<!--    </div>-->
+<!--</div>-->

@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="./frontend/css/styles.css">
 </head>
 <body>
-<div class="hull hamming">
+<div class="hull network">
     <div class="calculator_settings">
         <div class="calc_type">
-            <a href="/pehepe/" class="operation_button calculator_options">Common</a>
-            <a href="/pehepe/hamming.php" class="operation_button calculator_options">Hamming</a>
-            <a href="/pehepe/network.php" class="operation_button calculator_options">Network</a>
+            <a href="./" class="operation_button calculator_options">Common</a>
+            <a href="./hamming.php" class="operation_button calculator_options">Hamming</a>
+            <a href="./network.php" class="operation_button calculator_options">Network</a>
         </div>
         <div class="load-wrap">
             <div class="load-4">
@@ -22,13 +22,13 @@
             </div>
         </div>
     </div>
-    <div class="output">
+    <div class="output network">
         <div class="result">
             <?= $result; ?>
         </div>
     </div>
     <div class="buttons">
-        <form action="/pehepe/network.php" class="pAehali" method="post">
+        <form action="./network.php" class="pAehali" method="post">
             <input type="text" name="str" class="set_hamming">
             <div>
                 <button name="clear" class="operation_button">pAehali</button>
