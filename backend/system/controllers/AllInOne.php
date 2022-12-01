@@ -173,18 +173,27 @@ class Network
     #6
     public string $bin_dec_subnet_with_part_node = '';
     #7
-    public string $bin_of_byte_subnet_ = '';
+    public string $bin_of_byte_subnet_node = '';
     #8
+    public string $network_identifier_dec = '';
     #9
+    public string $subnet_identifier_dec = '';
     #10
+    public string $node_identifier_initial_ip = '';
     #11
+    public string $assign_initial_ip = 'NU';
     #12
+    public string $f_subnet_f_node = '';
     #13
+    public string $f_subnet_l_node = '';
     #14
+    public string $first_assigned_subnet_broadcast = '';
     #15
+    public string $l_subnet_f_node = '';
     #16
+    public string $l_subnet_l_node = '';
     #17
-
+    public string $last_assigned_subnet_broadcast = '';
 
     #1 Класс IP-адреса
     public function network_class(): string
@@ -240,7 +249,7 @@ class Network
         // echo $this->default_mask . " " . $this->default_mask_dec . " " . $this->subnet_mask . " " . $this->subnet_mask_dec;
     }
 
-    #4.1 Максимальное количество возможных подсетей
+    #4.2 Максимальное количество возможных подсетей
     public function subnet_max_quantity(): void
     {
         $this->max_pos_subnets = 2 ** $this->subnet_res_bits;
@@ -261,43 +270,64 @@ class Network
     #4.5 Шаг подсети ??
     public function network_step()
     {
-        $this->network_step = 256;
+        $this->network_step = 256-substr($this->subnet_mask, -3);
     }
 
     #4.6 Номер подсети ί, где ί — число битов, зарезервированных для подсети
     public function network_number_with_res_bits()
     {
-
+        $this->subnet_num_i = $this->subnet_res_bits*$this->network_step;
     }
 
     #5 Идентификатор ПОДСЕТИ (в десятичном формате с точками)Ответ
     public function subnet_identifier()
     {
-
+        $this->subnet_identifier_i = substr($_POST['str'], 0, strrpos($_POST['str'], '.')) . ".". $this->subnet_num_i;
     }
 
     #6 Двоичное и десятичное значение маски в октете, содержащем no. подсети и части узла (разделенные точкой, например: 11100000.224)
     public function byte_mask_value()
     {
-
+        $this->bin_dec_subnet_with_part_node = decbin(substr($this->subnet_mask, -3)) . '.' . substr($this->subnet_mask, -3);
     }
 
     #7 Двоичное значение байта, не содержащее. подсети и часть узла
     public function bin_bite_no_subnet_node()
     {
-
+        $this->bin_of_byte_subnet_node = decbin(substr(substr($_POST['str'], 0, strrpos($_POST['str'], '/')), strrpos(substr($_POST['str'], 0, strrpos($_POST['str'], '/')), '.') + 1));
     }
 
     #8 Идентификатор NETWORK (в десятичном формате с точками)
     public function network_identifier_dec()
     {
+        echo $ip = substr($_POST['str'], 0, strrpos($_POST['str'], '/')) . '<br>';
 
+        // xxx.xxx
+        $ip = explode('.', $ip) . "<br>";
+        echo $ip;
+        echo $ip = $ip[0] . '.' . $ip[1] . "<br>";
+
+        // xxx.xxx.xxx
+        $ip = explode('.', $ip);
+        echo $ip = $ip[0] . '.' . $ip[1] . '.' . $ip[2] . "<br>";
+//        switch ($this->network_class) {
+//            case 'A':
+//                $this->default_mask_dec = 8;
+//                return $this->default_mask = '255.0.0.0';
+//            case 'B':
+//                $this->default_mask_dec = 16;
+//                return $this->default_mask = '255.255.0.0';
+//            case 'C':
+//                $this->default_mask_dec = 24;
+//                return $this->default_mask = '255.255.255.0';
+//        }
+        $this->network_identifier_dec = substr($_POST['str'], 0, strrpos($_POST['str'], '.')) . "." . 0;
     }
 
     #9 Идентификатор ПОДСЕТИ (в десятичном формате с точками)Ответ
     public function subwork_identifier_dec()
     {
-
+        $this->subnet_identifier_dec = "";
     }
 
     #10 Идентификатор NOD исходного IP-адреса (в десятичном формате с точками)Ответ
@@ -358,32 +388,38 @@ class Network
             $this->subnet_max_quantity();
             $this->node_res_bits();
             $this->max_possible_nodes();
+            $this->network_step();
+            $this->network_number_with_res_bits();
+            $this->subnet_identifier();
+            $this->byte_mask_value();
+            $this->bin_bite_no_subnet_node();
+            $this->network_identifier_dec();
             // $_POST['result'] = "Class " . $this->network_class . ' <br> Def. Mask' . $this->default_mask . ' <br> Subn. Mask' . $this->subnet_mask . " <br>Res.Bits" . $this->subnet_res_bits . " <br>Max.Sub." . $this->max_pos_subnets . " <br>" . $this->node_res_bits . " <br>" . $this->max_possible_nodes . "<br> ";
 //            echo "<br>Class " . $this->network_class . ' <br> Def. Mask ' . $this->default_mask . ' <br> Subn. Mask ' . $this->subnet_mask . " <br>Res.Bits " . $this->subnet_res_bits . " <br>Max.Sub. " . $this->max_pos_subnets . " <br> " . $this->node_res_bits . " <br> " . $this->max_possible_nodes . "<br> ";
             return '<div class="structure_container">' .
                 '<div class="structure_container_content">' .
-                '<p class="task">1.Clasa IP adresei: ' . $this->network_class . '</p>' .
-                '<p class="task">2.Masca implicită de reţea: ' . $this->default_mask . '</p>' .
-                '<p class="task">3.Masca extinsa a IP adresei în format zecimal cu punct: ' . $this->subnet_mask . '</p>' .
-                '<p class="task">4.1.Numărul de biţi rezervaţi pentru subreţea: ' . $this->subnet_res_bits . '</p>' .
-                '<p class="task">4.2.Numărul maximal de subreţele posibile: ' . $this->max_pos_subnets . '</p>' .
-                '<p class="task">4.3.Numărul de biţi rezervaţi pentru nod: ' . $this->node_res_bits . '</p>' .
-                '<p class="task">4.4.Numărul maximal de noduri posibile în fiecare subreţea: ' . $this->max_possible_nodes . '</p>' .
-                '<p class="task">4.5.Pasul subreţelei: ' . $this->network_step . '</p>' .
-                '<p class="task">4.6.Numărul subreţelei ί, unde ί este numărul de biţi rezervaţi pentru subreţea: ' . $this->network_class . '</p>' .
-                '<p class="task">5.Identificatorul SUBREŢELEI i (în format zecimal cu punct): ' . $this->network_class . '</p>' .
-                '<p class="task">6.Valoarea binară şi zecimală a măştii în octetul ce conţine nr. de subreţea şi o parte de nod (despărţite prin punct de ex: 11100000.224): ' . $this->network_class . '</p>' .
-                '<p class="task">7.Valoarea binară a octetului ce conţine nr. de subreţea şi o parte de nod: ' . $this->network_class . '</p>' .
-                '<p class="task">8.Identificatorul de REŢEA (în format zecimal cu punct): ' . $this->network_class . '</p>' .
-                '<p class="task">9.Identificatorul de SUBREŢEA (în format zecimal cu punct): ' . $this->network_class . '</p>' .
-                '<p class="task">10.Identificatorul de NOD a IP adresei iniţiale (în format zecimal cu punct): ' . $this->network_class . '</p>' .
-                '<p class="task">11.IP adresa iniţială poate fi atribuită unui nod?: ' . $this->network_class . '</p>' .
-                '<p class="task">12.Identificatorul primei subreţele atribuite cu primul nod: ' . $this->network_class . '</p>' .
-                '<p class="task">13.Identificatorul primei subreţele atribuite cu ultimul nod: ' . $this->network_class . '</p>' .
-                '<p class="task">14.Adresa de difuzare pentru prima subreţea atribuită: ' . $this->network_class . '</p>' .
-                '<p class="task">15.Identificatorul ultimei subreţele atribuite cu primul nod: ' . $this->network_class . '</p>' .
-                '<p class="task">16.Identificatorul ultimei subreţele atribuite cu ultimul nod: ' . $this->network_class . '</p>' .
-                '<p class="task">17.Adresa de difuzare pentru ultima subreţea atribuită: ' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">1.Clasa IP adresei: </span>' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">2.Masca implicită de reţea: </span>' . $this->default_mask . '</p>' .
+                '<p class="task"><span class="network_task">3.Masca extinsa a IP adresei în format zecimal cu punct: </span>' . $this->subnet_mask . '</p>' .
+                '<p class="task"><span class="network_task">4.1.Numărul de biţi rezervaţi pentru subreţea: </span>' . $this->subnet_res_bits . '</p>' .
+                '<p class="task"><span class="network_task">4.2.Numărul maximal de subreţele posibile: </span>' . $this->max_pos_subnets . '</p>' .
+                '<p class="task"><span class="network_task">4.3.Numărul de biţi rezervaţi pentru nod: </span>' . $this->node_res_bits . '</p>' .
+                '<p class="task"><span class="network_task">4.4.Numărul maximal de noduri posibile în fiecare subreţea: </span>' . $this->max_possible_nodes . '</p>' .
+                '<p class="task"><span class="network_task">4.5.Pasul subreţelei: </span>' . $this->network_step . '</p>' .
+                '<p class="task"><span class="network_task">4.6.Numărul subreţelei ί, unde ί este numărul de biţi rezervaţi pentru subreţea: </span>' . $this->subnet_num_i . '</p>' .
+                '<p class="task"><span class="network_task">5.Identificatorul SUBREŢELEI i (în format zecimal cu punct): </span>' . $this->subnet_identifier_i . '</p>' .
+                '<p class="task"><span class="network_task">6.Valoarea binară şi zecimală a măştii în octetul ce conţine nr. de subreţea şi o parte de nod (despărţite prin punct de ex: 11100000.224): </span>' . $this->bin_dec_subnet_with_part_node . '</p>' .
+                '<p class="task"><span class="network_task">7.Valoarea binară a octetului ce conţine nr. de subreţea şi o parte de nod: </span>' . $this->bin_of_byte_subnet_node . '</p>' .
+                '<p class="task"><span class="network_task">8.Identificatorul de REŢEA (în format zecimal cu punct): </span>' . $this->network_identifier_dec . '</p>' .
+                '<p class="task"><span class="network_task">9.Identificatorul de SUBREŢEA (în format zecimal cu punct): ' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">10.Identificatorul de NOD a IP adresei iniţiale (în format zecimal cu punct): </span>' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">11.IP adresa iniţială poate fi atribuită unui nod?: </span>' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">12.Identificatorul primei subreţele atribuite cu primul nod: </span>' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">13.Identificatorul primei subreţele atribuite cu ultimul nod: </span>' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">14.Adresa de difuzare pentru prima subreţea atribuită: </span>' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">15.Identificatorul ultimei subreţele atribuite cu primul nod: </span>' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">16.Identificatorul ultimei subreţele atribuite cu ultimul nod: </span>' . $this->network_class . '</p>' .
+                '<p class="task"><span class="network_task">17.Adresa de difuzare pentru ultima subreţea atribuită: </span>' . $this->network_class . '</p>' .
                 '</div> ' .
                 '</div>';
         }
